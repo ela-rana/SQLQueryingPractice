@@ -74,3 +74,20 @@ select distinct top 15  LastName
 from SalesLT.Customer	 
 where LastName LIKE '[aeiou]%[aeiou]'
 
+select Name, ListPrice
+from SalesLT.Product
+order by ListPrice desc, Name ASC --if we don't write asc after name it 
+--will still be asc because sorting is ascending by default in SQL
+
+select top 7 Name, ListPrice
+from SalesLT.Product
+order by ListPrice desc
+--displays top 7 most expensive list price products
+
+select top 7 WITH TIES Name, ListPrice
+from SalesLT.Product
+order by ListPrice desc
+--displays top 7 most expensive list price products, but if the last (7th)
+-- item has the same list price as the next 2 items after that then because the 
+-- price is tied with the 7th item they are shown as well so 7+2 = 9 items are shown
+

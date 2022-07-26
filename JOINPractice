@@ -1,0 +1,30 @@
+--following 2 statements/queries display both tables separately
+select customerid, lastname
+from SalesLT.Customer
+
+select SalesOrderID, TotalDue, CustomerID
+from SalesLT.SalesOrderHeader
+
+--But if we want above 2 tables merged together on the 
+--customerID field (which is what relates the two tables together), then we use JOIN
+
+--there's 847 total customers in the customer table
+--and there's 32 records in salesOrderHeader table
+
+--First lets do it without using JOIN
+SELECT Customer.CustomerID, LastName, SalesOrderID, TotalDue
+from SalesLT.Customer, SalesLT.SalesOrderHeader
+--When we do this without using JOIN it returns 27,104 rows (847 customers x 32 SalesOrderHeaders)
+--Meaning for each of the 847 customers it creates 32 records, one for each salesorderheader
+--because it doesn't know what the tables need to merge based on
+--thus we need to correct the error by using JOIN
+
+
+SELECT Customer.CustomerID, LastName, SalesOrderID, TotalDue
+from SalesLT.Customer JOIN SalesLT.SalesOrderHeader
+ON Customer.CustomerID = SalesOrderHeader.CustomerID
+--this returns 32 records, one for each record in SalesOrderHeader
+--it only displays the matched values, so since every customerID in
+--SalesOrderHeader is a customerID that exists in the Customer table
+--the result will consist of one value for each record in the table with 
+--the lesser of the 2 tables in # of records

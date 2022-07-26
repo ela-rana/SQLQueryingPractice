@@ -1,0 +1,76 @@
+use adventureworks
+
+select ProductID, SalesLT.Product.Name, Standardcost, ListPrice, ListPrice-StandardCost AS [Profit Margin],
+ListPrice-(ListPrice*0.10) As 'Member Discount Price'
+from SalesLT.Product 
+where ProductModelID = 6
+
+select ProductID, SalesLT.Product.Name, StandardCost, ListPrice
+from SalesLT.Product
+where ProductModelID=6
+
+select top 20 FirstName+ ' '+MiddleName+' '+LastName as [Full Name]
+from [SalesLT].[Customer] --this statement returns full name as null if middle name is null. Need to fix that
+
+select top 20 FirstName+ ' '+LastName as [Full Name]
+from [SalesLT].[Customer]
+
+select top 10 *
+from SalesLT.ProductCategory
+
+select top 20 CustomerID, LastName, FirstName, Suffix, ModifiedDate
+from SalesLT.Customer
+order by LastName desc, CustomerID desc
+
+--the below query does the same as above query but instead of column name it uses column number
+select top 20 CustomerID, LastName, FirstName, Suffix, ModifiedDate
+from SalesLT.Customer
+order by 2 desc, 1 desc	--means order by the second column descending, and then by the 1st column desc
+
+select LastName as LN, FirstName, Suffix, ModifiedDate
+from SalesLT.Customer
+order by LN
+
+--In the below 3 statements in the first one, there is no comma between FirstName and Suffix
+--So the system considers it as: FirstName AS Suffix, so it displays the column values but the 
+--header is called suffix
+--So the first and 3rd query has the exact same result but the column name is Suffix in the first one 
+--for first name and firstName for 3rd query
+--in the second one there is comma between the 2 so the system displays both columns
+select top 20 FirstName Suffix
+from SalesLT.Customer
+order by LastName, FirstName
+
+select top 20 FirstName, Suffix
+from SalesLT.Customer
+order by LastName, FirstName
+
+select top 20 FirstName AS Suffix
+from SalesLT.Customer
+order by LastName, FirstName
+
+select CustomerID, LastName, CAST (ModifiedDate as date)
+from SalesLT.Customer
+where ModifiedDate>'2005-09-01' and ModifiedDate <'2005-11-01'
+order by ModifiedDate
+
+select CustomerID, LastName, CAST (ModifiedDate as date)
+from SalesLT.Customer
+where ModifiedDate between '2005-09-01' and '2005-11-01'
+order by ModifiedDate
+--between is inclusive so it included the date 2005-09-01 and 2005-11-01 as well, 
+--whereas the query above it only include values > not >= and < not <=
+
+select top 10 CustomerID, LastName, ModifiedDate 
+from SalesLT.Customer
+where LastName<'g'
+order by ModifiedDate
+
+select  top 15  LastName
+from SalesLT.Customer	 
+where LastName LIKE '[aeiou]%[aeiou]'
+						 
+select distinct top 15  LastName
+from SalesLT.Customer	 
+where LastName LIKE '[aeiou]%[aeiou]'
+

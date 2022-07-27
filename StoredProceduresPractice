@@ -1,0 +1,6 @@
+create proc Di_sp
+as
+select CustomerID, FirstName, LastName
+from SalesLT.Customer
+
+exec dbo.DisplayCustIDandName_sp

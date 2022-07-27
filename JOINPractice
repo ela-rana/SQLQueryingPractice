@@ -28,3 +28,20 @@ ON Customer.CustomerID = SalesOrderHeader.CustomerID
 --SalesOrderHeader is a customerID that exists in the Customer table
 --the result will consist of one value for each record in the table with 
 --the lesser of the 2 tables in # of records
+
+
+select CustomerID, LastName, FirstName
+From SalesLT.Customer	--847 customers
+
+Select SalesOrderID, TotalDue
+from SalesLT.SalesOrderHeader	--32 sales order headers
+
+select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+From SalesLT.Customer JOIN SalesLT.SalesOrderHeader 
+on Customer.CustomerID=SalesOrderHeader.CustomerID	--displays the 32 matching values
+
+--the query above and below does the same because JOIN keyword does the same as INNER JOIN
+--JOIN is inner by default
+select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+From SalesLT.Customer INNER JOIN SalesLT.SalesOrderHeader 
+on Customer.CustomerID=SalesOrderHeader.CustomerID

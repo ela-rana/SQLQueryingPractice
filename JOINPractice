@@ -45,3 +45,21 @@ on Customer.CustomerID=SalesOrderHeader.CustomerID	--displays the 32 matching va
 select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
 From SalesLT.Customer INNER JOIN SalesLT.SalesOrderHeader 
 on Customer.CustomerID=SalesOrderHeader.CustomerID
+
+select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+From SalesLT.Customer LEFT JOIN SalesLT.SalesOrderHeader 
+on Customer.CustomerID=SalesOrderHeader.CustomerID
+Order by SalesOrderID desc	--displays 847 records (same as customer)
+--The LEFT JOIN causes everything on the left table (Customer) display
+--and for each record if there is a matching SalesOrderHeader table record it displays after it
+--and if there is not a matching SalesOrderHeader table record it displays Null 
+--values for the SalesOrderHeader portion
+
+
+--If in the above table we want to see all records that do not have SalesOrderID (the primary key
+--of the SalesOrderHeader table) then we do the following query
+select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+From SalesLT.Customer LEFT JOIN SalesLT.SalesOrderHeader 
+on Customer.CustomerID=SalesOrderHeader.CustomerID
+where SalesOrderID is null	--displays 815 records (customer's 847 - salesorderheader's 32 = 815)
+--this query pretty much shows everything in the left join minus everything in the join (inner join)

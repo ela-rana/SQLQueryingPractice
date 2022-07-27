@@ -1,85 +1,102 @@
+--LESSON ON SQL JOINS: PRACTICE QUERIES RELATED TO JOINS
+
 --QUERY 1 
-cselect customerid, lastname
-from SalesLT.Customer
+--Regular query to retrieve data from Customer table (no joins involved) 
+--Note: CustomerID is the primary key of the Customer table 
+--Result: the 847 records in the Customer table are displayed 
+SELECT CustomerID, LastName, FirstName
+FROM SalesLT.Customer
 
 --QUERY 2
-select SalesOrderID, TotalDue, CustomerID
-from SalesLT.SalesOrderHeader
+--Regular query to retrieve data from SalesOrderHeader table (no joins involved) 
+--Note: CustomerID is the foreign key of the SalesOrderHeader table that links it to  
+--the customer table 
+--Result: the 32 records in the SalesOrderHeader table are displayed 
+SELECT SalesOrderID, TotalDue, CustomerID
+FROM SalesLT.SalesOrderHeader
 
---But if we want above 2 tables merged together on the 
---customerID field (which is what relates the two tables together), then we use JOIN
-
---there's 847 total customers in the customer table
---and there's 32 records in salesOrderHeader table
-
---First lets do it without using JOIN keyword
---the following is called a CROSS JOIN
-SELECT Customer.CustomerID, LastName, SalesOrderID, TotalDue
-from SalesLT.Customer, SalesLT.SalesOrderHeader
---When we do this without using JOIN it returns 27,104 rows (847 customers x 32 SalesOrderHeaders)
---Meaning for each of the 847 customers it creates 32 records, one for each salesorderheader
+--QUERY 3
+--A query to retrieve data from Customer & SalesOrderHeader tables merged
+--together 
+--We are not using the JOIN keyword for this merge 
+--This query is an example of a cross join without using the CROSS JOIN keyword
+--Note: the field that relates these two tables is the CustomerID 
+--However in this query we are not linking the two tables based on the CustomerID 
+--Field. Thus this is a cross join 
+--Result: 27,104 rows (847 customers x 32 SalesOrderHeaders) are displayed
+--For each of the 847 customers it creates 32 records, one for each SalesOrderHeader
 --because it doesn't know what the tables need to merge based on
---thus we need to correct the error by using JOIN
+SELECT Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+FROM SalesLT.Customer, SalesLT.SalesOrderHeader
 
-select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
-From SalesLT.Customer LEFT JOIN SalesLT.SalesOrderHeader 
-on Customer.CustomerID=SalesOrderHeader.CustomerID
-Order by SalesOrderID desc	--displays 847 records (same as customer)
+--QUERY 5
+--A query to cross join two tables
+--Exactly same as QUERY 4
+--Here we use the CROSS JOIN keyword to do the exact same thing as the comma in 
+--query 4
+SELECT Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+FROM SalesLT.Customer CROSS JOIN SalesLT.SalesOrderHeader
+
+--QUERY 6
+--A query to join two tables on the CustomerID field that is in both tables
+--The JOIN keyword is used which does an inner join (because inner join is the default 
+--join type in SQL)
+--Result: what matches for the two tables are displayed. So, for every SalesOrderHeader
+--record, the customer info for its customerID is displayed. 
+--Thus 32 merged records are displayed, one for each SalesOrderHeader’s CustomerID 
+SELECT Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+FROM SalesLT.Customer JOIN SalesLT.SalesOrderHeader 
+ON Customer.CustomerID=SalesOrderHeader.CustomerID
+
+--QUERY 7
+--A query to inner join two tables 
+--Exactly same as QUERY 6
+--Here we use INNER JOIN keyword instead of JOIN keyword to do the exact same thing
+--because SQL does an inner join by default when the JOIN keyword is used
+SELECT Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+FROM SalesLT.Customer INNER JOIN SalesLT.SalesOrderHeader 
+ON Customer.CustomerID=SalesOrderHeader.CustomerID
+
+--QUERY 8
+--A query to perform a LEFT JOIN
 --The LEFT JOIN causes everything on the left table (Customer) display
---and for each record if there is a matching SalesOrderHeader table record it displays after it
+--and for each record if there is a matching SalesOrderHeader table record it displays it
 --and if there is not a matching SalesOrderHeader table record it displays Null 
 --values for the SalesOrderHeader portion
+--Displays 847 records (same as customer)
+SELECT Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+FROM SalesLT.Customer LEFT JOIN SalesLT.SalesOrderHeader 
+ON Customer.CustomerID=SalesOrderHeader.CustomerID
+ORDER BY SalesOrderID desc
 
-
+--QUERY 9
+--A query to display every record that does not inner join in the left table
+--This query pretty much shows everything in the left join minus everything in the join (inner join)
 --If in the above table we want to see all records that do not have SalesOrderID (the primary key
 --of the SalesOrderHeader table) then we do the following query
-select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
-From SalesLT.Customer LEFT JOIN SalesLT.SalesOrderHeader 
-on Customer.CustomerID=SalesOrderHeader.CustomerID
-where SalesOrderID is null	--displays 815 records (customer's 847 - salesorderheader's 32 = 815)
---this query pretty much shows everything in the left join minus everything in the join (inner join)
+--Displays 815 records (customer's 847 - SalesOrderHeader's 32 = 815)
+SELECT Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
+FROM SalesLT.Customer LEFT JOIN SalesLT.SalesOrderHeader 
+ON Customer.CustomerID=SalesOrderHeader.CustomerID
+WHERE SalesOrderID IS NULL	
 
+--QUERY 10
+--To join 3 tables together
+SELECT Customer.CustomerID, LastName, SalesOrderHeader.SalesOrderID, TotalDue, ProductID
+FROM SalesLT.Customer  
+JOIN SalesLT.SalesOrderHeader
+ON Customer.CustomerID=SalesOrderHeader.CustomerID
+JOIN SalesLT.SalesOrderDetail
+ON SalesOrderHeader.SalesOrderID=SalesOrderDetail.SalesOrderID	
 
-SELECT Customer.CustomerID, LastName, SalesOrderID, TotalDue
-from SalesLT.Customer JOIN SalesLT.SalesOrderHeader
-ON Customer.CustomerID = SalesOrderHeader.CustomerID
---this returns 32 records, one for each record in SalesOrderHeader
---it only displays the matched values, so since every customerID in
---SalesOrderHeader is a customerID that exists in the Customer table
---the result will consist of one value for each record in the table with 
---the lesser of the 2 tables in # of records
+--QUERY 11
+--To join 3 tables together using aliases
+--This query displays the exact same result as Query 10, but we are using short aliases for the table 
+--names so that we don’t have to type out the long names every time we type it
+SELECT C.CustomerID, LastName, SOH.SalesOrderID, TotalDue, ProductID
+FROM SalesLT.Customer  AS C
+JOIN SalesLT.SalesOrderHeader AS SOH
+ON C.CustomerID=SOH.CustomerID
+JOIN SalesLT.SalesOrderDetail AS SOD
+ON SOH.SalesOrderID=SOD.SalesOrderID	
 
-
-select CustomerID, LastName, FirstName
-From SalesLT.Customer	--847 customers
-
-Select SalesOrderID, TotalDue
-from SalesLT.SalesOrderHeader	--32 sales order headers
-
-select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
-From SalesLT.Customer JOIN SalesLT.SalesOrderHeader 
-on Customer.CustomerID=SalesOrderHeader.CustomerID	--displays the 32 matching values
-
---the query above and below does the same because JOIN keyword does the same as INNER JOIN
---JOIN is inner by default
-select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
-From SalesLT.Customer INNER JOIN SalesLT.SalesOrderHeader 
-on Customer.CustomerID=SalesOrderHeader.CustomerID
-
-select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
-From SalesLT.Customer LEFT JOIN SalesLT.SalesOrderHeader 
-on Customer.CustomerID=SalesOrderHeader.CustomerID
-Order by SalesOrderID desc	--displays 847 records (same as customer)
---The LEFT JOIN causes everything on the left table (Customer) display
---and for each record if there is a matching SalesOrderHeader table record it displays after it
---and if there is not a matching SalesOrderHeader table record it displays Null 
---values for the SalesOrderHeader portion
-
-
---If in the above table we want to see all records that do not have SalesOrderID (the primary key
---of the SalesOrderHeader table) then we do the following query
-select Customer.CustomerID, LastName, FirstName, SalesOrderID, TotalDue
-From SalesLT.Customer LEFT JOIN SalesLT.SalesOrderHeader 
-on Customer.CustomerID=SalesOrderHeader.CustomerID
-where SalesOrderID is null	--displays 815 records (customer's 847 - salesorderheader's 32 = 815)
---this query pretty much shows everything in the left join minus everything in the join (inner join)

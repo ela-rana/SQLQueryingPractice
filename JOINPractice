@@ -1,7 +1,8 @@
---following 2 statements/queries display both tables separately
-select customerid, lastname
+--QUERY 1 
+cselect customerid, lastname
 from SalesLT.Customer
 
+--QUERY 2
 select SalesOrderID, TotalDue, CustomerID
 from SalesLT.SalesOrderHeader
 

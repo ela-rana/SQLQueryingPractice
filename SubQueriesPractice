@@ -1,0 +1,27 @@
+--LESSON ON SUBQUERIES
+--Subqueries mean nested queries, meaning that one query is placed within another to get
+--a desired result
+
+--QUERY 1
+--Not a sub-query
+--A query to display average of all Freight record values in the SalesOrderHeader table
+--Displays the result: 676.1196
+SELECT avg(Freight)
+FROM SalesLT.SalesOrderHeader
+
+--QUERY 2
+--Not a sub-query
+--A query to display the SalesOrderID, Freight, and the average value of Freight that we 
+--found out from the previous query entered in the column next to it for comparison
+--For every record the constant value of 676.1196 will be displayed in the third column
+--This type of query is used for comparison purposes
+SELECT SalesOrderID, Freight, 676.1196
+FROM SalesLT.SalesOrderHeader
+
+--QUERY 3
+--In this example we nest query 1 within query 2 to get the same result as query 2
+SELECT SalesOrderID, Freight, (SELECT avg(Freight) FROM SalesLT.SalesOrderHeader)
+FROM SalesLT.SalesOrderHeader
+
+
+

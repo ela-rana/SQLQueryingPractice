@@ -20,8 +20,13 @@ FROM SalesLT.SalesOrderHeader
 
 --QUERY 3
 --In this example we nest query 1 within query 2 to get the same result as query 2
+--without having to retrieve the query 1 result, manually enter its value in query 2
+--and then run it
 SELECT SalesOrderID, Freight, (SELECT avg(Freight) FROM SalesLT.SalesOrderHeader)
 FROM SalesLT.SalesOrderHeader
 
-
-
+--QUERY 4
+--Exactly same as query 3 but alias AverageFreight was added as the third column name
+--so that the column has a name (previously just said (No column name))
+SELECT SalesOrderID, Freight, (SELECT avg(Freight) FROM SalesLT.SalesOrderHeader) AverageFreight
+FROM SalesLT.SalesOrderHeader

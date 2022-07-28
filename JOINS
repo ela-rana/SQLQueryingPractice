@@ -22,8 +22,7 @@
 --5) Cross join (Keyword: CROSS JOIN or , (not a keyword just a comma placed between the tables):
 --   For each row of one table, every row of the other table is displayed. So total number of 
 --   records in the join will be (Total records in left table x Total records in right table)
---   do not connect
-
+--   Note: For cross join you do not add a linking clause between the two or more tables
 
 
 --QUERY 1 

@@ -100,3 +100,13 @@ ON C.CustomerID=SOH.CustomerID
 JOIN SalesLT.SalesOrderDetail AS SOD
 ON SOH.SalesOrderID=SOD.SalesOrderID	
 
+--QUERY 12
+--Same as query 11 but the keyword AS has been skipped to show that even without the AS keyword the 
+--words after the table names will be considered their aliases
+SELECT C.CustomerID, LastName, SOH.SalesOrderID, TotalDue, ProductID
+FROM SalesLT.Customer C
+JOIN SalesLT.SalesOrderHeader SOH
+ON C.CustomerID=SOH.CustomerID
+JOIN SalesLT.SalesOrderDetail SOD
+ON SOH.SalesOrderID=SOD.SalesOrderID	
+

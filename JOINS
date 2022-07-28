@@ -1,4 +1,30 @@
---LESSON ON SQL JOINS: PRACTICE QUERIES RELATED TO JOINS
+--LESSON ON SQL JOINS & PRACTICE QUERIES RELATED TO JOINS
+
+--In SQL, Joins are when we retrieve data from two or more differnt tables together,
+--typically based on their connecting factor (usually in the form of primary key to foreign 
+--key relationships), and display a merged single table result
+
+--Joins can be of different types:
+--1) Inner join (Keyword: JOIN or INNER JOIN): 
+--   Only the values that match up based on the connecting clause are displayed
+--2) Left Outer join (Keyword: LEFT JOIN or LEFT OUTER JOIN):
+--   Everything on the left table is displayed with the right table columns displaying
+--   the linked values based on their connecting clause, or displaying NULL if the values
+--   do not connect
+--3) Right Outer join (Keyword: RIGHT JOIN or RIGHT OUTER JOIN):
+--   Everything on the right table is displayed with the left table columns displaying
+--   the linked values based on their connecting clause, or displaying NULL if the values
+--   do not connect
+--4) Full Outer join (Keyword: FULL JOIN or FULL OUTER JOIN):
+--   Everything on the left and right table is displayed with intersecting values of the
+--   two tables displayed within the same row, and for non-intersecting values, NULL is 
+--   displayed for the other table for each value of one table
+--5) Cross join (Keyword: CROSS JOIN or , (not a keyword just a comma placed between the tables):
+--   For each row of one table, every row of the other table is displayed. So total number of 
+--   records in the join will be (Total records in left table x Total records in right table)
+--   do not connect
+
+
 
 --QUERY 1 
 --Regular query to retrieve data from Customer table (no joins involved) 

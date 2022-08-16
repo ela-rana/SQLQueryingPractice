@@ -25,6 +25,16 @@ CREATE TABLE Employee (
 
 GO --batch end
 
+INSERT INTO Department
+VALUES ( 1, 'Executive', 'Seattle, WA')
+
+INSERT INTO Department
+VALUES ( 2, 'Information Technology', 'Seattle, WA')
+
+INSERT INTO Department (DeptID, DeptName, Location)
+VALUES ( 8, 'East-Asia Relations', 'Hyderabad, India')
+
+
 --BATCH: batch creates blocks of queries that need to execute at a time. It is followed by a GO keyword. Batch separates the queries so that 
 --they do not run as an all or nothing set. Each batch executes separately, and then moves on to the next batch
 --Here create database set of queries has to run in a separate batch than the create table queries, because otherwise the database would not be

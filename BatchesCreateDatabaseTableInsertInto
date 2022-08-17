@@ -1,0 +1,68 @@
+USE master  --to ensure we are in our master
+
+CREATE DATABASE EmployeeSystem    //creates the database
+
+GO  --batch end. We have to end the batch before creating tables so that the database exists before the tables in that db is created
+
+USE EmployeeSystem	--to go to the db created in previous batch to ensure the tables created below are added within this DB and not in master
+
+CREATE TABLE Department (
+	DeptID int NOT NULL,
+	DeptName varchar(50) NOT NULL,
+	Location varchar(50),
+	PRIMARY KEY (DeptID)
+	)
+
+CREATE TABLE Employee (
+	EmpID int NOT NULL,
+	FirstName varchar(50) NOT NULL,
+	LastName varchar(50) NOT NULL,
+	DateOfBirth date,
+	DeptID int NOT NULL,
+	PRIMARY KEY (EmpID),
+	FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+	)
+
+GO --batch end
+
+USE EmployeeSystem
+
+INSERT INTO Department
+VALUES ( 7, 'Marketing', 'Seattle, WA')
+--here we don't have a parentheses with which field we are entering so we must enter the values 
+--in the exact order as the columns in the table, and every field value should be filled
+
+INSERT INTO Department (DeptID, DeptName, Location)
+VALUES ( 4, 'Human Resources- Houston', 'Houston, TX')
+--here we have a parentheses with which field we are entering so we must enter the values 
+--in the exact order as the fields in the parentheses
+
+INSERT INTO Department (DeptID, DeptName)
+VALUES (2, 'Business Strategy')
+--here we are inserting a new record but we are only adding id and name, location is not 
+--entered so it will be filled as null
+
+INSERT INTO Department (DeptName, DeptID, Location)
+VALUES ('Europe Relations', 12, 'Bucharest, Romania')
+--here we are filling everything, but we changed the order of the fields within the parentheses 
+--so we have to enter it in the same order in our VALUES
+
+INSERT INTO Department
+VALUES
+(1,'Executive', null),	--all three fields must be filled in order, so if you have no value enter null 
+						--but only if that field is one that allows null
+(3,'Human Resources- Main','Seattle, WA'),
+(9,'Sales','Seattle, WA'),
+(10, 'Global Relations - Main','Atlanta, GA'),
+(6, 'Informational Technology', 'Seattle, WA'),
+(11, 'Asia Relations','Mumbai, India'),
+(8, 'Logistics','Houston, TX'),
+(5, 'Human Resources- Atlanta', 'Atlanta, GA')
+--this method is used to enter multiple records in same INSERT INTO statement
+
+--BATCH: batch creates blocks of queries that need to execute at a time. It is followed by a GO keyword. Batch separates the queries so that 
+--they do not run as an all or nothing set. Each batch executes separately, and then moves on to the next batch
+--Here create database set of queries has to run in a separate batch than the create table queries, because otherwise the database would not be
+--created yet, so we wouldn't be able to create tables within it
+
+--NOTE: each insert into statement automatically executes as a separate batch. So they are batched by default

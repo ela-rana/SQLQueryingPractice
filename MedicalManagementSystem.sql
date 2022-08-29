@@ -9,7 +9,7 @@ USE MedicalManagementSystem
 CREATE TABLE MMSUser (
 	Username varchar(50) NOT NULL,
 	Passwrd varchar(50) NOT NULL,
-	SSN varchar(50) NOT NULL,
+	SSN varchar(50) NOT NULL UNIQUE,
 	FirstName varchar(50) NOT NULL,
 	MiddleName varchar(50),
 	LastName varchar(50) NOT NULL,
@@ -21,11 +21,11 @@ CREATE TABLE MMSUser (
 
 CREATE TABLE Patient (
 	PatientID int NOT NULL,
-	SSN varchar(50) NOT NULL,
+	SSN varchar(50) NOT NULL UNIQUE,
 	MailingAddress varchar(100) NOT NULL,
 	DateOfBirth date NOT NULL,
 	Allergies varchar(50) NOT NULL,
-	PCMID int NOT NULL,
+	PCMID int NOT NULL UNIQUE,
 	PRIMARY KEY(PatientID)
 	)
 
@@ -36,8 +36,8 @@ CREATE TABLE Appointment (
 	Duration int NOT NULL,
 	Description varchar(50) NOT NULL,
 	Location varchar(50) NOT NULL,
-	PCMID int NOT NULL,
-	PatientID int NOT NULL,
+	PCMID int NOT NULL UNIQUE,
+	PatientID int NOT NULL UNIQUE,
 	PRIMARY KEY (ApptID)
 	)
 
@@ -45,7 +45,7 @@ CREATE TABLE Employee (
 	EmployeeID int NOT NULL,
 	MedCredentials varchar(50) NOT NULL,
 	Specialty varchar(50),
-	SSN varchar(50) NOT NULL,
+	SSN varchar(50) NOT NULL UNIQUE,
 	PRIMARY KEY (EmployeeID)
 	)
 

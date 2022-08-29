@@ -14,7 +14,7 @@ CREATE TABLE MMSUser (
 	MiddleName varchar(50),
 	LastName varchar(50) NOT NULL,
 	Phone varchar(50) NOT NULL,
-	Email varchar(50) NOT NULL,
+	Email varchar(50) NOT NULL UNIQUE,
 	UserType int NOT NULL,
 	PRIMARY KEY (Username)
 	)

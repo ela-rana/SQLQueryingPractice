@@ -25,7 +25,7 @@ CREATE TABLE Patient (
 	MailingAddress varchar(100) NOT NULL,
 	DateOfBirth date NOT NULL,
 	Allergies varchar(50) NOT NULL,
-	PCMID int NOT NULL UNIQUE,
+	PCMID int NOT NULL,
 	PRIMARY KEY(PatientID)
 	)
 
@@ -36,8 +36,8 @@ CREATE TABLE Appointment (
 	Duration int NOT NULL,
 	Description varchar(50) NOT NULL,
 	Location varchar(50) NOT NULL,
-	PCMID int NOT NULL UNIQUE,
-	PatientID int NOT NULL UNIQUE,
+	PCMID int NOT NULL,
+	PatientID int NOT NULL,
 	PRIMARY KEY (ApptID)
 	)
 

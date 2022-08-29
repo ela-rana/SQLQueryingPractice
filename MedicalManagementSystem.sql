@@ -6,7 +6,8 @@ GO
 
 USE MedicalManagementSystem
 
-CREATE TABLE User {
+
+CREATE TABLE SiteUser (
 	Username varchar(50) NOT NULL,
 	Passwrd varchar(50) NOT NULL,
 	SSN varchar(50) NOT NULL,
@@ -18,15 +19,16 @@ CREATE TABLE User {
 	MailingAddress varchar(100) NOT NULL,
 	DateOfBirth date NOT NULL,
 	UserType varchar(50) NOT NULL
-	}
+	PRIMARY KEY (Username)
+	)
 
-CREATE TABLE Patient {
+CREATE TABLE Patient (
 	SSN varchar(50) NOT NULL,
 	Allergies varchar(50) NOT NULL,
 	PCMID int NOT NULL
-	}
+	)
 
-CREATE TABLE Appointment {
+CREATE TABLE Appointment (
 	ApptID int NOT NULL,
 	ApptDate date NOT NULL,
 	ApptTime time NOT NULL,
@@ -36,10 +38,14 @@ CREATE TABLE Appointment {
 	ProviderID int NOT NULL,
 	PatientSSN varchar(50) NOT NULL,
 	PRIMARY KEY (ApptID)
-	}
+	)
 
-CREATE TABLE Provider {
+CREATE TABLE Provider (
 	ProviderID int NOT NULL,
 	MedCredentials varchar(50) NOT NULL,
-	Specialty varchar(50)
-	}
+	Specialty varchar(50),
+	SSN varchar(50) NOT NULL
+	)
+
+ALTER TABLE SiteUser
+ADD FOREIGN KEY (SSN) REFERENCES Patient(SSN)

@@ -1,0 +1,7 @@
+USE MedicalManagementSystem
+DROP TABLE MMSUser
+DROP TABLE Patient
+DROP TABLE Employee
+DROP TABLE Appointment
+
+DROP DATABASE MedicalManagementSystem

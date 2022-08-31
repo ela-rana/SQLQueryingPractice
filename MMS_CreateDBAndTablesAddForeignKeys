@@ -1,0 +1,66 @@
+USE master
+
+CREATE DATABASE MMS
+
+GO ------------------------------------
+
+USE MMS
+
+CREATE TABLE MMSUser (
+	UserID int NOT NULL,
+	Passwrd varchar(50) NOT NULL,
+	SSN varchar(50) NOT NULL UNIQUE,
+	FirstName varchar(50) NOT NULL,
+	MiddleName varchar(50),
+	LastName varchar(50) NOT NULL,
+	Phone varchar(50) NOT NULL,
+	Email varchar(50) NOT NULL UNIQUE,
+	UserType int NOT NULL,
+	PRIMARY KEY (UserID)
+	)
+
+CREATE TABLE Patient (
+	UserID int NOT NULL,
+	DOB date NOT NULL,
+	Address varchar(100) NOT NULL,
+	PCMUserID int NOT NULL,
+	PRIMARY KEY(UserID)
+	)
+
+CREATE TABLE Employee (
+	UserID int NOT NULL,
+	EmpType int NOT NULL,
+	Specialty varchar(50),
+	PRIMARY KEY (UserID)
+	)
+
+CREATE TABLE Appointment (
+	ApptID int NOT NULL,
+	ApptDate date NOT NULL,
+	ApptTime time NOT NULL,
+	Duration int NOT NULL,
+	Description varchar(50),
+	Location varchar(50),
+	PatientUserID int NOT NULL,
+	ProviderUserID int NOT NULL,
+	PRIMARY KEY (ApptID)
+	)
+
+GO ------------------------
+
+ALTER TABLE Patient
+ADD FOREIGN KEY (UserID) REFERENCES MMSUser(UserID)
+
+ALTER TABLE Employee
+ADD FOREIGN KEY (UserID) REFERENCES MMSUser(UserID)
+
+ALTER TABLE Patient
+ADD FOREIGN KEY (PCMUserID) REFERENCES MMSUser(UserID)
+
+ALTER TABLE Appointment
+ADD FOREIGN KEY (PatientUserID) REFERENCES MMSUser(UserID)
+
+ALTER TABLE Appointment
+ADD FOREIGN KEY (ProviderUserID) REFERENCES MMSUser(UserID)
+
+GO --------------------------

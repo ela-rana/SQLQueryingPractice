@@ -1,0 +1,37 @@
+USE MMS
+
+INSERT INTO MMSUser
+VALUES 
+	(1,'Anna','234-54-6655','Anna',NULL,'Banana','456-777-8567','annabanana@gmail.com',1),
+	(2,'John','567-55-5454','John','B.','Wilson','565-777-7453','John@outlook.com',2),
+	(3,'Ela','123-45-6789','Ela','R.','Rana','637-777-3463','elarana@mssa.unitedtraining.com',3),
+	(4,'Zayn','777-54-6655','Zayn',NULL,'Banana','456-742-3546','Zayn@gmail.com',1),
+	(5,'Marianne','684-54-6655','Marianne',NULL,'Song','754-777-8467','Marianne@outlook.com',2),
+	(6,'Whitney','689-54-5565','Whitney','Ronda','Wilson','456-555-5675','Whitney@gmail.com',2),
+	(7,'Bob','234-87-3456','Bob',NULL,'Banana','456-777-3735','bobthebuilder@gmail.com',1),
+	(8,'Harvey','576-64-6655','Harvey',NULL,'Weatherford','455-777-1345','har33@outlook.com',1),
+	(9,'Joanna','547-54-4767','Joanna',NULL,'Walker','856-777-2315','att55@outlook.com',1),
+	(10,'Melanie','647-54-6543','Melanie',NULL,'Brookston','745-777-7895','Melanie@outlook.com',1),
+	(11,'Bree','898-55-7543','Bree',NULL,'Davenport','456-456-7895','Bree@gmail.com',2),
+	(12,'Booker','357-54-5674','Booker',NULL,'Wilson','456-723-4683','Booker@outlook.com',2),
+	(13,'Wendy','663-56-7541','Wendy',NULL,'Smith','456-452-5645','Wendy@yahoo.com',2)
+
+INSERT INTO Patient
+VALUES
+	(1,'2001-05-06','123 Abc St, Hinesville, GA 31313',2),
+	(4, '2004-09-12','4362 MLK Blvd, Christi, BD 39284',5),	
+	(7, '2003-05-20','25 MLK Blvd, Maryville, BD 39284',5),
+	(8, '1969-09-02','653 Annie Lane, Maryville,BD 39284',5),
+	(9, '2001-11-11','54 5th St, Christi, BD 39284',2),
+	(10, '1988-12-13','546 Washington Blvd, Christi, BD 39284',5)
+
+INSERT INTO Employee
+VALUES
+	(2, 3, 'Primary Care'),
+	(5, 3, 'Primary Care'),
+	(3, 1, NULL),
+	(6, 3, 'Primary Care'),
+	(11, 2, 'Dermatology'),
+	(12, 2, 'Cardiology'),
+	(13, 6, 'Other')
+
